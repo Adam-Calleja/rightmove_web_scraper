@@ -407,3 +407,89 @@ class TestAccommodation():
                 status = None,
             )
 
+    def test_is_furnished(self):
+        """
+        Tests the is_furnished method
+
+        In this test, the furnish_type is provided as 'Furnished'. The is_furnished
+        method should return True.
+
+        Raises
+        ------
+        AssertionError
+            If the is_furnished method does not return True
+        """
+
+        accommodation = Accommodation(
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            monthly_price = 1000.0,
+            room_count = 2,
+            bathroom_count = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Furnished',
+            post_code = 'M1 6ER',
+            status = 'Available',
+        )
+
+        assert accommodation.is_furnished() == True
+
+    def test_is_not_furnished(self):
+        """
+        Tests the is_furnished method
+
+        In this test, the furnish_type is provided as 'Unfurnished'. The is_furnished
+        method should return False.
+
+        Raises
+        ------
+        AssertionError
+            If the is_furnished method does not return False
+        """
+
+        accommodation = Accommodation(
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            monthly_price = 1000.0,
+            room_count = 2,
+            bathroom_count = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Unfurnished',
+            post_code = 'M1 6ER',
+            status = 'Available',
+        )
+
+        assert accommodation.is_furnished() == False
+
+    def test_is_part_furnished(self):
+        """
+        Tests the is_furnished method
+
+        In this test, the furnish_type is provided as 'Part Furnished'. The is_furnished
+        method should return True.
+
+        Raises
+        ------
+        AssertionError
+            If the is_furnished method does not return True
+        """
+
+        accommodation = Accommodation(
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            monthly_price = 1000.0,
+            room_count = 2,
+            bathroom_count = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Part Furnished',
+            post_code = 'M1 6ER',
+            status = 'Available',
+        )
+
+        assert accommodation.is_furnished() == True
