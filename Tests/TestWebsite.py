@@ -1,5 +1,6 @@
 import pytest
 from rightmove_web_scraper.Website import Website
+from datetime import datetime
 
 class TestWebsite():
     """
@@ -336,3 +337,51 @@ class TestWebsite():
         # Assert
         expected_url = 'https://www.rightmove.co.uk/property-to-rent/find.html?locationIdentifier=REGION%5E1&radius=0.0&minPrice=0&maxPrice=1000&minBedrooms=1&maxBedrooms=1&_includeLetAgreed=on&includeLetAgreed=true&furnishTypes=furnished&channel=RENT&transactionType=LETTING&dontShow='
         assert search_url == expected_url
+
+    def test_parse_listings_one_complete_listing(self):
+        """
+        Test the parse_listings method
+
+        Test the parse_listings method when a single complete listing
+        is listed on the website. The method should return a list
+        of Accommodation objects. 
+
+        Raises
+        ------
+        AssertionError
+            If the list of Accommodation objects is not as expected
+        """
+
+        # Arrange
+        website = Website()
+        website.selectors = {
+                "listing_container": "PropertyCard_propertyCardContainerWrapper__mcK1Z",
+                "title": "PropertyAddress_address__LYRPq",
+                "price": "PropertyPrice_price__VL65t",
+                "url": "property-details-lozenge",
+                "bedrooms": "PropertyInformation_bedroomsCount___2b5R",
+                "bathrooms": "PropertyInformation_bathContainer__ut8VY",
+                "property_type": "PropertyInformation_propertyType__u8e76"
+        }
+
+        with open('Tests/TestData/one_complete_listing.html', 'r') as file:
+            html = file.read()
+
+        # Act
+        listings = website.parse_listings(html)
+
+        # Assert
+        assert len(listings) == 1
+        assert listings[0].title == 'Mount Yard, Old Mount Street, Manchester, Greater Manchester, M4'
+        assert listings[0].website == 'Rightmove'
+        assert listings[0].url == 'https://www.rightmove.co.uk/properties/158351885#/?channel=RES_LET'
+        assert listings[0].monthly_price == 1550.0
+        assert listings[0].bedrooms == 2
+        assert listings[0].bathrooms == 2
+        assert listings[0].available_from == datetime.now().date()
+        assert listings[0].deposit == 1845.0
+        assert listings[0].council_tax_band == ''
+        assert listings[0].furnish_type == 'furnished'
+        assert listings[0].status == 'available'
+        assert listings[0].property_type == 'Apartment'
+
