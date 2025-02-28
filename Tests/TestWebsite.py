@@ -375,6 +375,8 @@ class TestWebsite():
         assert listings[0].title == 'Mount Yard, Old Mount Street, Manchester, Greater Manchester, M4'
         assert listings[0].website == 'Rightmove'
         assert listings[0].url == 'https://www.rightmove.co.uk/properties/158351885#/?channel=RES_LET'
+        assert listings[0].latitude == 53.4887692
+        assert listings[0].longitude == -2.2351936
         assert listings[0].monthly_price == 1550.0
         assert listings[0].bedrooms == 2
         assert listings[0].bathrooms == 2
