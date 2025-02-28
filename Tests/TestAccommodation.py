@@ -25,30 +25,66 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town",
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"   
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == 1
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
         assert accommodation.available_from == datetime(2025, 5, 1)
         assert accommodation.deposit == 1045
         assert accommodation.council_tax_band == 'A'
         assert accommodation.furnish_type == 'Furnished'
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
+
+    def test_create_accommodation_no_title(self):
+        """
+        Tests the creation of an Accommodation object without the title parameter
+
+        In this test, no title is provided. A TypeError should be raised.
+
+        Raises
+        ------
+        TypeError
+            If the title parameter is not provided
+        """
+
+        with pytest.raises(TypeError):
+            accommodation = Accommodation(
+                title = None,
+                website = "Rightmove",
+                url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+                latitude = 53.483959,
+                longitude = -2.244644,
+                monthly_price = 1000.0,
+                bedrooms = 2,
+                bathrooms = 1,
+                available_from = datetime(2025, 5, 1),
+                deposit = 1045,
+                council_tax_band = 'A',
+                furnish_type = 'Furnished',
+                status = 'Available',
+                property_type = 'Flat',
+            )
 
     def test_create_accommodation_no_website(self):
         """
@@ -64,17 +100,20 @@ class TestAccommodation():
 
         with pytest.raises(TypeError):
             accommodation = Accommodation(
+                title = "Flat 101, Test Street, Test Town"  ,
                 website = None,
                 url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+                latitude = 53.483959,
+                longitude = -2.244644,
                 monthly_price = 1000.0,
-                room_count = 2,
-                bathroom_count = 1,
+                bedrooms = 2,
+                bathrooms = 1,
                 available_from = datetime(2025, 5, 1),
                 deposit = 1045,
                 council_tax_band = 'A',
                 furnish_type = 'Furnished',
-                post_code = 'M1 6ER',
                 status = 'Available',
+                property_type = 'Flat',
             )
 
     def test_create_accommodation_no_url(self):
@@ -91,18 +130,111 @@ class TestAccommodation():
         
         with pytest.raises(TypeError):
             accommodation = Accommodation(
+                title = "Flat 101, Test Street, Test Town"  ,
                 website = "Rightmove",
                 url = None,
+                latitude = 53.483959,
+                longitude = -2.244644,
                 monthly_price = 1000.0,
-                room_count = 2,
-                bathroom_count = 1,
+                bedrooms = 2,
+                bathrooms = 1,
                 available_from = datetime(2025, 5, 1),
                 deposit = 1045,
                 council_tax_band = 'A',
                 furnish_type = 'Furnished',
-                post_code = 'M1 6ER',
                 status = 'Available',
+                property_type = 'Flat',
             )
+
+    def test_create_accommodation_no_latitude(self):
+        """
+        Tests the creation of an Accommodation object without the latitude parameter
+
+        In this test, no latitude is provided. The Accommodation object should be
+        created without any errors.
+
+        Raises
+        ------
+        AssertionError
+            If the Accommodation object is not created correctly    
+        """
+        
+        accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = None,
+            longitude = -2.244644,
+            monthly_price = 1000.0,
+            bedrooms = 2,
+            bathrooms = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Furnished',
+            status = 'Available',
+            property_type = 'Flat',
+        )
+
+        assert accommodation.title == "Flat 101, Test Street, Test Town"   
+        assert accommodation.website == "Rightmove"
+        assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == None
+        assert accommodation.longitude == -2.244644
+        assert accommodation.monthly_price == 1000.0
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
+        assert accommodation.available_from == datetime(2025, 5, 1)
+        assert accommodation.deposit == 1045
+        assert accommodation.council_tax_band == 'A'
+        assert accommodation.furnish_type == 'Furnished'
+        assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
+
+    def test_create_accommodation_no_longitude(self):
+        """
+        Tests the creation of an Accommodation object without the longitude parameter
+
+        In this test, no longitude is provided. The Accommodation object should be
+        created without any errors.
+
+        Raises
+        ------
+        AssertionError
+            If the Accommodation object is not created correctly
+        """
+
+        accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = None,
+            monthly_price = 1000.0,
+            bedrooms = 2,
+            bathrooms = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Furnished',
+            status = 'Available',
+            property_type = 'Flat',
+        )
+
+        assert accommodation.title == "Flat 101, Test Street, Test Town"   
+        assert accommodation.website == "Rightmove"
+        assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == None
+        assert accommodation.monthly_price == 1000.0
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
+        assert accommodation.available_from == datetime(2025, 5, 1)
+        assert accommodation.deposit == 1045
+        assert accommodation.council_tax_band == 'A'
+        assert accommodation.furnish_type == 'Furnished'
+        assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_monthly_price(self):
         """
@@ -118,51 +250,57 @@ class TestAccommodation():
 
         with pytest.raises(TypeError):
             accommodation = Accommodation(
+                title = "Flat 101, Test Street, Test Town"  ,
                 website = "Rightmove",
                 url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+                latitude = 53.483959,
+                longitude = -2.244644,
                 monthly_price = None,
-                room_count = 2,
-                bathroom_count = 1,
+                bedrooms = 2,
+                bathrooms = 1,
                 available_from = datetime(2025, 5, 1),
                 deposit = 1045,
                 council_tax_band = 'A',
                 furnish_type = 'Furnished',
-                post_code = 'M1 6ER',
                 status = 'Available',
+                property_type = 'Flat',
             )
 
-    def test_create_accommodation_no_room_count(self):
+    def test_create_accommodation_no_bedrooms(self):
         """
-        Tests the creation of an Accommodation object without the room_count parameter
+        Tests the creation of an Accommodation object without the bedrooms parameter
 
-        In this test, no room_count is provided. A TypeError should be raised.
+        In this test, no bedrooms is provided. A TypeError should be raised.
 
         Raises
         ------
         TypeError
-            If the room_count parameter is not provided
+            If the bedrooms parameter is not provided
         """
 
         with pytest.raises(TypeError):
             accommodation = Accommodation(
+                title = "Flat 101, Test Street, Test Town"  ,
                 website = "Rightmove",
                 url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+                latitude = 53.483959,
+                longitude = -2.244644,
                 monthly_price = 1000.0,
-                room_count = None,
-                bathroom_count = 1,
+                bedrooms = None,
+                bathrooms = 1,
                 available_from = datetime(2025, 5, 1),
                 deposit = 1045,
                 council_tax_band = 'A',
                 furnish_type = 'Furnished',
-                post_code = 'M1 6ER',
                 status = 'Available',
+                property_type = 'Flat',
             )
 
-    def test_create_accommodation_no_bathroom_count(self):
+    def test_create_accommodation_no_bathrooms(self):
         """
-        Tests the creation of an Accommodation object without the bathroom_count parameter
+        Tests the creation of an Accommodation object without the bathrooms parameter
 
-        In this test, no bathroom_count is provided. The Accommodation object should be 
+        In this test, no bathrooms is provided. The Accommodation object should be 
         created without any errors.
 
         Raises
@@ -172,30 +310,36 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = None,
+            bedrooms = 2,
+            bathrooms = None,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == None
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == None
         assert accommodation.available_from == datetime(2025, 5, 1)
         assert accommodation.deposit == 1045
         assert accommodation.council_tax_band == 'A'
         assert accommodation.furnish_type == 'Furnished'
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_available_from(self):
         """
@@ -211,30 +355,36 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = None,
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == 1
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
         assert accommodation.available_from == None
         assert accommodation.deposit == 1045
         assert accommodation.council_tax_band == 'A'
         assert accommodation.furnish_type == 'Furnished'
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_deposit(self):
         """
@@ -250,30 +400,36 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = None,
             council_tax_band = 'A',
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == 1
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
         assert accommodation.available_from == datetime(2025, 5, 1)
         assert accommodation.deposit == None
         assert accommodation.council_tax_band == 'A'
         assert accommodation.furnish_type == 'Furnished'
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_council_tax_band(self):
         """
@@ -289,30 +445,36 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = None,
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == 1
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
         assert accommodation.available_from == datetime(2025, 5, 1)
         assert accommodation.deposit == 1045
         assert accommodation.council_tax_band == None
         assert accommodation.furnish_type == 'Furnished'
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_furnish_type(self):
         """
@@ -328,57 +490,36 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = None,
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
         assert accommodation.website == "Rightmove"
         assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
         assert accommodation.monthly_price == 1000.0
-        assert accommodation.room_count == 2
-        assert accommodation.bathroom_count == 1
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
         assert accommodation.available_from == datetime(2025, 5, 1)
         assert accommodation.deposit == 1045
         assert accommodation.council_tax_band == 'A'
         assert accommodation.furnish_type == None
-        assert accommodation.post_code == 'M1 6ER'
         assert accommodation.status == 'Available'
-
-    def test_create_accommodation_no_post_code(self):
-        """
-        Tests the creation of an Accommodation object without the post_code parameter
-
-        In this test, no post_code is provided. A TypeError should be raised.
-
-        Raises
-        ------
-        TypeError
-            If the post_code parameter is not provided
-        """
-
-        with pytest.raises(TypeError):
-            accommodation = Accommodation(
-                website = "Rightmove",
-                url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
-                monthly_price = 1000.0,
-                room_count = 2,
-                bathroom_count = 1,
-                available_from = datetime(2025, 5, 1),
-                deposit = 1045,
-                council_tax_band = 'A',
-                furnish_type = 'Furnished',
-                post_code = None,
-                status = 'Available',
-            )
+        assert accommodation.property_type == 'Flat'
 
     def test_create_accommodation_no_status(self):
         """
@@ -394,18 +535,66 @@ class TestAccommodation():
 
         with pytest.raises(TypeError):
             accommodation = Accommodation(
+                title = "Flat 101, Test Street, Test Town"  ,
                 website = "Rightmove",
                 url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+                latitude = 53.483959,
+                longitude = -2.244644,
                 monthly_price = 1000.0,
-                room_count = 2,
-                bathroom_count = 1,
+                bedrooms = 2,
+                bathrooms = 1,
                 available_from = datetime(2025, 5, 1),
                 deposit = 1045,
                 council_tax_band = 'A',
                 furnish_type = 'Furnished',
-                post_code = 'M1 6ER',
                 status = None,
+                property_type = 'Flat',
             )
+
+    def test_create_accommodation_no_property_type(self):
+        """
+        Tests the creation of an Accommodation object without the property_type parameter
+
+        In this test, no property_type is provided. Tbe Accommodation object should be
+        created without any errors.
+
+        Raises
+        ------
+        AssertionError
+            If the Accommodation object is not created correctly
+        """
+
+        accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town"  ,
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
+            monthly_price = 1000.0,
+            bedrooms = 2,
+            bathrooms = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Furnished',
+            status = 'Available',
+            property_type = None,
+        )
+
+        assert accommodation.title == "Flat 101, Test Street, Test Town"
+        assert accommodation.website == "Rightmove"
+        assert accommodation.url == "https://www.rightmove.co.uk/property-to-rent/property-12345678.html"
+        assert accommodation.latitude == 53.483959
+        assert accommodation.longitude == -2.244644
+        assert accommodation.monthly_price == 1000.0
+        assert accommodation.bedrooms == 2
+        assert accommodation.bathrooms == 1
+        assert accommodation.available_from == datetime(2025, 5, 1)
+        assert accommodation.deposit == 1045
+        assert accommodation.council_tax_band == 'A'
+        assert accommodation.furnish_type == 'Furnished'
+        assert accommodation.status == 'Available'
+        assert accommodation.property_type == None
 
     def test_is_furnished(self):
         """
@@ -421,17 +610,20 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town",
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
         assert accommodation.is_furnished() == True
@@ -450,17 +642,20 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town",
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Unfurnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
         assert accommodation.is_furnished() == False
@@ -479,17 +674,20 @@ class TestAccommodation():
         """
 
         accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town",
             website = "Rightmove",
             url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
             monthly_price = 1000.0,
-            room_count = 2,
-            bathroom_count = 1,
+            bedrooms = 2,
+            bathrooms = 1,
             available_from = datetime(2025, 5, 1),
             deposit = 1045,
             council_tax_band = 'A',
             furnish_type = 'Part Furnished',
-            post_code = 'M1 6ER',
             status = 'Available',
+            property_type = 'Flat',
         )
 
         assert accommodation.is_furnished() == True
