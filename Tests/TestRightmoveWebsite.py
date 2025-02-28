@@ -32,13 +32,12 @@ class TestRightmoveWebsite():
         # Assert
         assert location_identifier == "904"
 
-
     def test_get_location_identifier_correct_display_name(self):
         """
         Test the get_location_identifier method
 
         Tests that the get_location_identifier method returns
-        the correct and display name for a given location.
+        the correct display name for a given location.
 
         Raises:
         ------
