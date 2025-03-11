@@ -100,6 +100,46 @@ class TestDatabase():
         assert result[13] == 'Available'
         assert result[14] == 'Flat'
 
+    def test_save_accommodation_duplicate(self, temp_db):
+        """
+        Tests the save_accommodation method with a duplicate accommodation
+
+        Raises
+        ------
+        AssertionError
+            If the duplicate accommodation is saved
+        """
+
+        # Arrange
+        db, _ = temp_db
+        accommodation = Accommodation(
+            title = "Flat 101, Test Street, Test Town",
+            website = "Rightmove",
+            url = "https://www.rightmove.co.uk/property-to-rent/property-12345678.html",
+            latitude = 53.483959,
+            longitude = -2.244644,
+            monthly_price = 1000.0,
+            bedrooms = 2,
+            bathrooms = 1,
+            available_from = datetime(2025, 5, 1),
+            deposit = 1045,
+            council_tax_band = 'A',
+            furnish_type = 'Furnished',
+            status = 'Available',
+            property_type = 'Flat',
+        )
+
+        db.save_accommodation(accommodation)
+
+        # Act
+        db.save_accommodation(accommodation)
+        cursor = db.conn.cursor()
+        cursor.execute("SELECT * FROM accommodations WHERE name='Flat 101, Test Street, Test Town'")
+        result = cursor.fetchall()
+
+        # Assert
+        assert len(result) == 1
+
     def test_delete_accommodation(self, temp_db):
         """
         Tests the delete_accommodation method 
