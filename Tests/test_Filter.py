@@ -7,21 +7,8 @@ from rightmove_web_scraper.Filter import Filter
 from rightmove_web_scraper.Accommodation import Accommodation
 from rightmove_web_scraper.Database import Database
 from datetime import datetime
-from unittest import TestCase
 
-@pytest.fixture
-def temp_db(self, tmp_path):
-    """
-    Creates a temporary database for testing
-    """
-    
-    db_file = tmp_path / "test.db"
-    db = Database(str(db_file))
-    db.connect()
-
-    return db, db_file
-
-class TestFilter(TestCase):
+class TestFilter():
     """
     Test Class for the Filter class
     """
@@ -30,7 +17,19 @@ class TestFilter(TestCase):
     def test_filter(self):
         return TestFilter()
     
-    def test_filter_by_price(self):
+    @pytest.fixture
+    def temp_db(self, tmp_path):
+        """
+        Creates a temporary database for testing
+        """
+        
+        db_file = tmp_path / "test.db"
+        db = Database(str(db_file))
+        db.connect()
+
+        return db, db_file
+    
+    def test_filter_by_price(self, temp_db):
         """
         Test the filter_by_price method
 
@@ -146,7 +145,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_location(self):
+    def test_filter_by_location(self, temp_db):
         """
         Test the filter_by_location method
 
@@ -226,7 +225,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_bedrooms(self):
+    def test_filter_by_bedrooms(self, temp_db):
         """
         Test the filter_by_bedrooms method
 
@@ -306,7 +305,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_bathrooms(self):
+    def test_filter_by_bathrooms(self, temp_db):
         """
         Test the filter_by_bathrooms method
 
@@ -386,7 +385,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_furnish_type(self):
+    def test_filter_by_furnish_type(self, temp_db):
         """
         Test the filter_by_furnish_type method
 
@@ -466,7 +465,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_date(self):
+    def test_filter_by_date(self, temp_db):
         """
         Test the filter_by_date method
 
@@ -546,7 +545,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_filter_by_status(self):
+    def test_filter_by_status(self, temp_db):
         """
         Test the filter_by_status method
 
@@ -626,7 +625,7 @@ class TestFilter(TestCase):
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
 
-    def test_apply_filters(self):
+    def test_apply_filters(self, temp_db):
         """
         Test the apply_filters method
 
