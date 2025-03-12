@@ -7,6 +7,7 @@ from rightmove_web_scraper.Filter import Filter
 from rightmove_web_scraper.Accommodation import Accommodation
 from rightmove_web_scraper.Database import Database
 from datetime import datetime
+from collections import Counter
 
 class TestFilter():
     """
@@ -143,7 +144,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_price(500.0, 1000.0)
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_location(self, temp_db):
         """
@@ -223,7 +224,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_location(53.483959, -2.244644, 1.0)
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_bedrooms(self, temp_db):
         """
@@ -303,7 +304,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_bedrooms(2, 3)
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_bathrooms(self, temp_db):
         """
@@ -383,7 +384,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_bathrooms(2, 2)
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_furnish_type(self, temp_db):
         """
@@ -463,7 +464,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_furnish_type('Furnished')
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_date(self, temp_db):
         """
@@ -543,7 +544,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_furnish_type('01-05-2025', '01-06-2025')
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_filter_by_status(self, temp_db):
         """
@@ -623,7 +624,7 @@ class TestFilter():
         filtered_accommodations = filter.filter_by_furnish_type('Available')
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
 
     def test_apply_filters(self, temp_db):
         """
@@ -707,4 +708,4 @@ class TestFilter():
         filtered_accommodations = Filter.apply_filters(filters)
 
         # Assert
-        self.assertCountEqual(filtered_accommodations, expected_accommodations)
+        assert Counter(filtered_accommodations) == Counter(expected_accommodations)
