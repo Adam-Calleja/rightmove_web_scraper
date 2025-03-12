@@ -5,8 +5,21 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import pytest
 from rightmove_web_scraper.Filter import Filter
 from rightmove_web_scraper.Accommodation import Accommodation
+from rightmove_web_scraper.Database import Database
 from datetime import datetime
 from unittest import TestCase
+
+@pytest.fixture
+def temp_db(self, tmp_path):
+    """
+    Creates a temporary database for testing
+    """
+    
+    db_file = tmp_path / "test.db"
+    db = Database(str(db_file))
+    db.connect()
+
+    return db, db_file
 
 class TestFilter(TestCase):
     """
@@ -31,7 +44,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -118,10 +132,16 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+        db.save_accommodation(accommodation_4)
+        db.save_accommodation(accommodation_5)
+
         expected_accommodations = [accommodation_2, accommodation_3, accommodation_4]
 
         # Act
-        filtered_accommodations = filter.filter_by_price([accommodation_1, accommodation_2, accommodation_3, accommodation_4, accommodation_5], 500.0, 1000.0)
+        filtered_accommodations = filter.filter_by_price(500.0, 1000.0)
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -140,7 +160,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -193,10 +214,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_1, accommodation_2]
 
         # Act
-        filtered_accommodations = filter.filter_by_location([accommodation_1, accommodation_2, accommodation_3], 53.483959, -2.244644, 1.0)
+        filtered_accommodations = filter.filter_by_location(53.483959, -2.244644, 1.0)
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -215,7 +240,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -268,10 +294,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_2, accommodation_3]
 
         # Act
-        filtered_accommodations = filter.filter_by_bedrooms([accommodation_1, accommodation_2, accommodation_3], 2, 3)
+        filtered_accommodations = filter.filter_by_bedrooms(2, 3)
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -290,7 +320,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -343,10 +374,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_2, accommodation_3]
 
         # Act
-        filtered_accommodations = filter.filter_by_bathrooms([accommodation_1, accommodation_2, accommodation_3], 2, 2)
+        filtered_accommodations = filter.filter_by_bathrooms(2, 2)
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -365,7 +400,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -418,10 +454,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_1]
 
         # Act
-        filtered_accommodations = filter.filter_by_furnish_type([accommodation_1, accommodation_2, accommodation_3], 'Furnished')
+        filtered_accommodations = filter.filter_by_furnish_type('Furnished')
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -440,7 +480,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -493,10 +534,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_1]
 
         # Act
-        filtered_accommodations = filter.filter_by_furnish_type([accommodation_1, accommodation_2, accommodation_3], '01-05-2025', '01-06-2025')
+        filtered_accommodations = filter.filter_by_furnish_type('01-05-2025', '01-06-2025')
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -515,7 +560,8 @@ class TestFilter(TestCase):
         """
 
         # Arrange
-        filter = Filter()
+        db, _ = temp_db
+        filter = Filter(db.connection)
 
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
@@ -568,10 +614,14 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         expected_accommodations = [accommodation_1]
 
         # Act
-        filtered_accommodations = filter.filter_by_furnish_type([accommodation_1, accommodation_2, accommodation_3], 'Available')
+        filtered_accommodations = filter.filter_by_furnish_type('Available')
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
@@ -589,6 +639,9 @@ class TestFilter(TestCase):
             If the list of Accommodation objects is not filtered correctly
         """
 
+        # Arrange
+        db, _ = temp_db
+
         accommodation_1 = Accommodation(
             title = "Flat 101, Test Street, Test Town",
             website = "Rightmove",
@@ -640,6 +693,10 @@ class TestFilter(TestCase):
             property_type = 'Flat',
         )
 
+        db.save_accommodation(accommodation_1)
+        db.save_accommodation(accommodation_2)
+        db.save_accommodation(accommodation_3)
+
         filters = {
             'bathrooms': (1, 1),
             'status': "Available"
@@ -648,7 +705,7 @@ class TestFilter(TestCase):
         expected_accommodations = [accommodation_1]
 
         # Act
-        filtered_accommodations = Filter.apply_filters([accommodation_1, accommodation_2, accommodation_3], filters)
+        filtered_accommodations = Filter.apply_filters(filters)
 
         # Assert
         self.assertCountEqual(filtered_accommodations, expected_accommodations)
