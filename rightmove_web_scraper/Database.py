@@ -1,20 +1,21 @@
 from rightmove_web_scraper.Accommodation import Accommodation
 import sqlite3
 from datetime import datetime
+from typing import List
 
 class Database:
 
-    def __init__(self, db_file):
+    def __init__(self, db_file: str) -> None:
         self.db_file = db_file
         self.conn = None
 
-    def connect(self):
+    def connect(self) -> None:
         """ Connect to the SQLite database. """
 
         self.conn = sqlite3.connect(self.db_file)
         self._create_table()
 
-    def _create_table(self):
+    def _create_table(self) -> None:
         """Create the accommodations table if it doesn't exist."""
 
         cursor = self.conn.cursor()
@@ -39,7 +40,7 @@ class Database:
         ''')
         self.conn.commit()
 
-    def save_accommodation(self, accommodation):
+    def save_accommodation(self, accommodation: Accommodation) -> None:
         """Save an accommodation to the database."""
 
         cursor = self.conn.cursor()
@@ -52,16 +53,18 @@ class Database:
         ))
         self.conn.commit()
 
-    def delete_accommodation(self, accommodation):
+    def delete_accommodation(self, accommodation: Accommodation) -> None:
         """Delete an accommodation from the database."""
+        
         cursor = self.conn.cursor()
         cursor.execute('''
             DELETE FROM accommodations WHERE title = ?
         ''', (accommodation.title,))
         self.conn.commit()
 
-    def get_accommodations(self):
+    def get_accommodations(self) -> List[Accommodation]:
         """Retrieve all accommodations from the database."""
+
         cursor = self.conn.cursor()
         cursor.execute('SELECT * FROM accommodations')
         rows = cursor.fetchall()
