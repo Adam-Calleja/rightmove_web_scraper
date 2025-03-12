@@ -83,7 +83,7 @@ class TestDatabase():
         # Act
         db.save_accommodation(accommodation)
         cursor = db.conn.cursor()
-        cursor.execute("SELECT * FROM accommodations WHERE name='Flat 101, Test Street, Test Town'")
+        cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchone()
 
         # Assert
@@ -138,7 +138,7 @@ class TestDatabase():
         # Act
         db.save_accommodation(accommodation)
         cursor = db.conn.cursor()
-        cursor.execute("SELECT * FROM accommodations WHERE name='Flat 101, Test Street, Test Town'")
+        cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchall()
 
         # Assert
@@ -178,7 +178,7 @@ class TestDatabase():
         # Act
         db.delete_accommodation(accommodation)
         cursor = db.conn.cursor()
-        cursor.execute("SELECT * FROM accommodations WHERE name='Flat 101, Test Street, Test Town'")
+        cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchone()
 
         # Assert
