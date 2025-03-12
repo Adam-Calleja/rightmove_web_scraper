@@ -1,6 +1,8 @@
+import datetime
+
 class Accommodation:
 
-    def __init__(self, title, website, url, latitude, longitude, monthly_price, bedrooms, bathrooms, available_from, deposit, council_tax_band, furnish_type, status, property_type):
+    def __init__(self, title: str, website: str, url: str, latitude: float, longitude: float, monthly_price: float, bedrooms: int, bathrooms: int, available_from: datetime.datetime, deposit: float, council_tax_band: str, furnish_type: str, status: str, property_type: str) -> None:
         self.title = title
         self.website = website
         self.url = url
@@ -29,7 +31,8 @@ class Accommodation:
         elif self.status is None:
             raise TypeError("Status cannot be None")
         
-    def is_furnished(self):
+    def is_furnished(self) -> bool:
         """ Returns True if the accommodation is furnished or part furnished. """
+        
         return self.furnish_type == "Furnished" or self.furnish_type == "Part Furnished"
         
