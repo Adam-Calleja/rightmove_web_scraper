@@ -5,6 +5,15 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import pytest
 from rightmove_web_scraper.Logger import Logger
 
+@pytest.fixture
+def temp_logger(tmp_path):
+    """
+    Ficture to create a temporary log file and Logger instance.
+    """
+
+    log_file = tmp_path / "test.log"
+    return Logger(str(log_file)), log_file
+
 class TestLogger():
     """
     Test Class for the Logger class
@@ -14,17 +23,7 @@ class TestLogger():
     def test_logger(self):
         return TestLogger()
     
-    @pytest.fixture
-    def temp_logger(tmp_path):
-        """
-        Ficture to create a temporary log file and Logger instance.
-        """
-
-        log_file = tmp_path / "test.log"
-        return Logger(str(log_file)), log_file
-    
-    @pytest.fixture
-    def read_log(log_file):
+    def read_log(self, log_file):
         """
         Fixture to read the contents of the log file
         """
