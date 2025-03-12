@@ -31,6 +31,37 @@ class Accommodation:
         elif self.status is None:
             raise TypeError("Status cannot be None")
         
+    def __eq__(self, other) -> bool:
+        """
+        Compares two Accommodation objects for equality
+
+        Parameters
+        ----------
+        other : Accommodation
+            The other Accommodation object to compare
+
+        Returns
+        -------
+        bool
+            True if the two Accommodation objects are equal, False otherwise
+        """
+
+        if isinstance(other, Accommodation):
+            return self.title == other.title and self.website == other.website and self.url == other.url and self.latitude == other.latitude and self.longitude == other.longitude and self.monthly_price == other.monthly_price and self.bedrooms == other.bedrooms and self.bathrooms == other.bathrooms and self.available_from == other.available_from and self.deposit == other.deposit and self.council_tax_band == other.council_tax_band and self.furnish_type == other.furnish_type and self.status == other.status and self.property_type == other.property_type
+        return False
+
+    def __hash__(self) -> int:
+        """
+        Returns the hash value of the Accommodation object
+
+        Returns
+        -------
+        int
+            The hash value of the Accommodation object
+        """
+
+        return hash((self.title, self.website, self.url, self.latitude, self.longitude, self.monthly_price, self.bedrooms, self.bathrooms, self.available_from, self.deposit, self.council_tax_band, self.furnish_type, self.status, self.property_type))
+        
     def is_furnished(self) -> bool:
         """ 
         Returns True if the accommodation is furnished or part furnished. 
