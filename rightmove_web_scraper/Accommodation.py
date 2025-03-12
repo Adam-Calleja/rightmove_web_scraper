@@ -30,5 +30,6 @@ class Accommodation:
             raise TypeError("Status cannot be None")
         
     def is_furnished(self):
+        """ Returns True if the accommodation is furnished or part furnished. """
         return self.furnish_type == "Furnished" or self.furnish_type == "Part Furnished"
         
