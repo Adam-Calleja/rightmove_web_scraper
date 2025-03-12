@@ -7,18 +7,18 @@ class Database:
 
     def __init__(self, db_file: str) -> None:
         self.db_file = db_file
-        self.conn = None
+        self.connection = None
 
     def connect(self) -> None:
         """ Connect to the SQLite database. """
 
-        self.conn = sqlite3.connect(self.db_file)
+        self.connection = sqlite3.connect(self.db_file)
         self._create_table()
 
     def _create_table(self) -> None:
         """Create the accommodations table if it doesn't exist."""
 
-        cursor = self.conn.cursor()
+        cursor = self.connection.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS accommodations (
                 id INTEGER PRIMARY KEY,
@@ -38,12 +38,12 @@ class Database:
                 property_type TEXT
             )
         ''')
-        self.conn.commit()
+        self.connection.commit()
 
     def save_accommodation(self, accommodation: Accommodation) -> None:
         """Save an accommodation to the database."""
 
-        cursor = self.conn.cursor()
+        cursor = self.connection.cursor()
         cursor.execute('''
             INSERT OR IGNORE INTO accommodations (
                 title, website, url, latitude, longitude, monthly_price, bedrooms, bathrooms, available_from, deposit, council_tax_band, furnish_type, status, property_type
@@ -51,21 +51,21 @@ class Database:
         ''', (
             accommodation.title, accommodation.website, accommodation.url, accommodation.latitude, accommodation.longitude, accommodation.monthly_price, accommodation.bedrooms, accommodation.bathrooms, accommodation.available_from.strftime('%Y-%m-%d'), accommodation.deposit, accommodation.council_tax_band, accommodation.furnish_type, accommodation.status, accommodation.property_type
         ))
-        self.conn.commit()
+        self.connection.commit()
 
     def delete_accommodation(self, accommodation: Accommodation) -> None:
         """Delete an accommodation from the database."""
         
-        cursor = self.conn.cursor()
+        cursor = self.connection.cursor()
         cursor.execute('''
             DELETE FROM accommodations WHERE title = ?
         ''', (accommodation.title,))
-        self.conn.commit()
+        self.connection.commit()
 
     def get_accommodations(self) -> List[Accommodation]:
         """Retrieve all accommodations from the database."""
 
-        cursor = self.conn.cursor()
+        cursor = self.connection.cursor()
         cursor.execute('SELECT * FROM accommodations')
         rows = cursor.fetchall()
         accommodations = []
