@@ -16,7 +16,7 @@ class Database:
         self._create_table()
 
     def _create_table(self) -> None:
-        """Create the accommodations table if it doesn't exist."""
+        """ Create the accommodations table if it doesn't exist. """
 
         cursor = self.connection.cursor()
         cursor.execute('''
@@ -41,7 +41,14 @@ class Database:
         self.connection.commit()
 
     def save_accommodation(self, accommodation: Accommodation) -> None:
-        """Save an accommodation to the database."""
+        """ 
+        Save an accommodation to the database.
+        
+        Parameters
+        ----------
+        accommodation : Accommodation
+            The accommodation to save to the database
+        """
 
         cursor = self.connection.cursor()
         cursor.execute('''
@@ -54,7 +61,14 @@ class Database:
         self.connection.commit()
 
     def delete_accommodation(self, accommodation: Accommodation) -> None:
-        """Delete an accommodation from the database."""
+        """
+        Delete an accommodation from the database.
+        
+        Parameters
+        ----------
+        accommodation : Accommodation
+            The accommodation to delete from the database
+        """
         
         cursor = self.connection.cursor()
         cursor.execute('''
@@ -63,7 +77,15 @@ class Database:
         self.connection.commit()
 
     def get_accommodations(self) -> List[Accommodation]:
-        """Retrieve all accommodations from the database."""
+        """
+        Retrieve all accommodations from the database.
+        
+        Returns
+        -------
+        List[Accommodation]
+            A list of all Accommodation objects in the 
+            database.
+        """
 
         cursor = self.connection.cursor()
         cursor.execute('SELECT * FROM accommodations')
