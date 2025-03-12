@@ -41,8 +41,8 @@ class TestDatabase():
 
         # Arrange
         db, db_file = temp_db
-        conn = sqlite3.connect(db_file)
-        cursor = conn.cursor()
+        connection = sqlite3.connect(db_file)
+        cursor = connection.cursor()
 
         # Act
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='accommodations'")
@@ -82,7 +82,7 @@ class TestDatabase():
 
         # Act
         db.save_accommodation(accommodation)
-        cursor = db.conn.cursor()
+        cursor = db.connection.cursor()
         cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchone()
 
@@ -137,7 +137,7 @@ class TestDatabase():
 
         # Act
         db.save_accommodation(accommodation)
-        cursor = db.conn.cursor()
+        cursor = db.connection.cursor()
         cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchall()
 
@@ -177,7 +177,7 @@ class TestDatabase():
 
         # Act
         db.delete_accommodation(accommodation)
-        cursor = db.conn.cursor()
+        cursor = db.connection.cursor()
         cursor.execute("SELECT * FROM accommodations WHERE title='Flat 101, Test Street, Test Town'")
         result = cursor.fetchone()
 
